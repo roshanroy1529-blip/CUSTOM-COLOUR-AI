@@ -8,173 +8,177 @@
 <style>
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background: #0b0d12;
+    background: #111;
     color: white;
+    min-height: 100vh;
 }
 
 header {
-    padding: 22px 18px;
     text-align: center;
-    border-bottom: 1px solid #252936;
+    padding: 18px 12px;
+    background: #181818;
+    border-bottom: 1px solid #333;
 }
 
-.logo {
-    font-size: 27px;
-    font-weight: 800;
+header h1 {
+    font-size: 26px;
 }
 
-.logo span {
-    color: #8b5cf6;
-}
-
-.tagline {
-    margin-top: 7px;
-    color: #9ca3af;
+header p {
+    color: #aaa;
+    margin-top: 6px;
     font-size: 14px;
 }
 
 .container {
-    width: 94%;
-    max-width: 900px;
+    max-width: 1100px;
     margin: auto;
-    padding: 25px 0 50px;
+    padding: 15px;
 }
 
-.hero {
+.upload-area {
     text-align: center;
-    padding: 25px 5px;
+    padding: 15px;
 }
 
-.hero h1 {
-    font-size: 38px;
-    margin: 5px 0 12px;
-}
-
-.hero p {
-    color: #a1a1aa;
-    line-height: 1.6;
-}
-
-.upload-box {
-    border: 2px dashed #4c4f5c;
-    border-radius: 18px;
-    padding: 35px 20px;
-    text-align: center;
-    margin: 20px 0;
-    background: #11141b;
-}
-
-.upload-box input {
-    display: none;
-}
-
-.upload-button {
+.upload-btn {
     display: inline-block;
-    padding: 14px 24px;
-    background: #7c3aed;
-    border-radius: 12px;
+    background: #fff;
+    color: #111;
+    padding: 12px 20px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.editor {
+#imageInput {
     display: none;
-    background: #11141b;
-    border: 1px solid #272b36;
-    border-radius: 18px;
-    padding: 15px;
 }
 
-.canvas-wrapper {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 12px;
-    background: #050609;
-    position: relative;
-}
-
-canvas {
-    display: block;
-    width: 100%;
-    height: auto;
-    touch-action: none;
-}
-
-.controls {
-    margin-top: 18px;
-}
-
-.control {
-    background: #181b23;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-}
-
-.control label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-input[type="color"] {
-    width: 100%;
-    height: 55px;
-    border: none;
-    border-radius: 10px;
-    background: transparent;
-}
-
-input[type="range"] {
-    width: 100%;
-}
-
-.buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+    background: #1c1c1c;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.tool-group {
+    display: flex;
+    align-items: center;
+    gap: 7px;
 }
 
 button {
     border: none;
-    border-radius: 11px;
-    padding: 14px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    background: #272b36;
+    background: #303030;
     color: white;
+    padding: 9px 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-button.primary {
-    background: #7c3aed;
+button:hover {
+    background: #444;
 }
 
-button.download {
-    background: #059669;
-    grid-column: span 2;
+button.active {
+    background: white;
+    color: black;
+}
+
+input[type="color"] {
+    width: 45px;
+    height: 38px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    width: 120px;
+}
+
+#canvasWrapper {
+    width: 100%;
+    min-height: 350px;
+    background:
+        linear-gradient(45deg, #222 25%, transparent 25%),
+        linear-gradient(-45deg, #222 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #222 75%),
+        linear-gradient(-45deg, transparent 75%, #222 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    border: 1px solid #444;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#canvas {
+    display: block;
+    max-width: 100%;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.brush-cursor {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border: 2px solid white;
+    border-radius: 50%;
+    pointer-events: none;
+    display: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 1px black;
 }
 
 .info {
     text-align: center;
-    color: #8f93a0;
+    color: #aaa;
     font-size: 13px;
-    margin-top: 15px;
-    line-height: 1.5;
+    padding: 12px;
 }
 
-footer {
+.status {
     text-align: center;
-    padding: 25px;
-    color: #666b78;
-    border-top: 1px solid #252936;
-    font-size: 13px;
+    margin-top: 10px;
+    color: #aaa;
+}
+
+@media(max-width:600px) {
+    header h1 {
+        font-size: 22px;
+    }
+
+    .toolbar {
+        gap: 7px;
+    }
+
+    button {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    input[type="range"] {
+        width: 90px;
+    }
 }
 </style>
 </head>
@@ -182,110 +186,112 @@ footer {
 <body>
 
 <header>
-    <div class="logo">Custom <span>Colour</span> AI</div>
-    <div class="tagline">Visualize your world in any colour.</div>
+    <h1>🎨 Custom Colour AI</h1>
+    <p>Upload an image and experiment with different colours</p>
 </header>
 
 <div class="container">
 
-    <section class="hero">
-        <h1>Try Any Colour</h1>
-        <p>
-            Upload a photo and experiment with different colours
-            before making the real-world change.
-        </p>
-    </section>
-
-    <div class="upload-box" id="uploadBox">
-        <div style="font-size:45px;">📷</div>
-        <h2>Upload Your Image</h2>
-        <p style="color:#888;">Bike, car, house, furniture or any object.</p>
-
-        <label class="upload-button">
-            Choose Image
+    <div class="upload-area">
+        <label class="upload-btn">
+            📷 Upload Image
             <input type="file" id="imageInput" accept="image/*">
         </label>
     </div>
 
-    <div class="editor" id="editor">
+    <div class="toolbar">
 
-        <div class="canvas-wrapper">
-            <canvas id="canvas"></canvas>
+        <div class="tool-group">
+            <span>Colour:</span>
+            <input type="color" id="colorPicker" value="#ff0000">
         </div>
 
-        <div class="controls">
-
-            <div class="control">
-                <label>🎨 Choose Colour</label>
-                <input type="color" id="colorPicker" value="#ff0000">
-            </div>
-
-            <div class="control">
-                <label>Colour Strength</label>
-                <input type="range" id="strength" min="0" max="100" value="65">
-                <div style="text-align:center;margin-top:6px;">
-                    <span id="strengthValue">65</span>%
-                </div>
-            </div>
-
-            <div class="control">
-                <label>Brush Size</label>
-                <input type="range" id="brushSize" min="5" max="150" value="50">
-            </div>
-
-            <div class="buttons">
-                <button class="primary" onclick="startPainting()">
-                    🖌️ Select Area
-                </button>
-
-                <button onclick="clearSelection()">
-                    ↩ Reset
-                </button>
-
-                <button class="download" onclick="downloadImage()">
-                    ⬇ Download Image
-                </button>
-            </div>
-
-            <div class="info">
-                Select an area by brushing over the object.
-                Then choose any colour and the selected area will be recoloured.
-            </div>
-
+        <div class="tool-group">
+            <span>Size:</span>
+            <input type="range" id="brushSize" min="3" max="150" value="35">
+            <span id="sizeValue">35</span>
         </div>
+
+        <button id="brushBtn" class="active">🖌 Brush</button>
+        <button id="eraserBtn">🧽 Eraser</button>
+
+        <button id="undoBtn">↩ Undo</button>
+        <button id="redoBtn">↪ Redo</button>
+
+        <button id="zoomOut">−</button>
+        <button id="zoomReset">100%</button>
+        <button id="zoomIn">+</button>
+
+        <button id="clearBtn">🗑 Clear</button>
+        <button id="downloadBtn">⬇ Download</button>
+
+    </div>
+
+    <div id="canvasWrapper">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="info">
+        Upload an image, choose any colour, then paint the area you want to recolour.
+        <br>
+        On mobile, drag your finger over the object.
+    </div>
+
+    <div class="status" id="status">
+        No image selected
     </div>
 
 </div>
 
-<footer>
-    © 2026 Custom Colour AI — Colour your imagination.
-</footer>
+<div class="brush-cursor" id="brushCursor"></div>
 
 <script>
 
-const input = document.getElementById("imageInput");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+const imageInput = document.getElementById("imageInput");
 const colorPicker = document.getElementById("colorPicker");
-const strengthSlider = document.getElementById("strength");
-const strengthValue = document.getElementById("strengthValue");
-const brushSlider = document.getElementById("brushSize");
+const brushSize = document.getElementById("brushSize");
+const sizeValue = document.getElementById("sizeValue");
 
-const editor = document.getElementById("editor");
-const uploadBox = document.getElementById("uploadBox");
+const brushBtn = document.getElementById("brushBtn");
+const eraserBtn = document.getElementById("eraserBtn");
 
-let originalImage = null;
-let originalPixels = null;
-let selectionCanvas = null;
-let selectionCtx = null;
-let painting = false;
+const undoBtn = document.getElementById("undoBtn");
+const redoBtn = document.getElementById("redoBtn");
 
-strengthSlider.addEventListener("input", () => {
-    strengthValue.textContent = strengthSlider.value;
-});
+const zoomIn = document.getElementById("zoomIn");
+const zoomOut = document.getElementById("zoomOut");
+const zoomReset = document.getElementById("zoomReset");
 
-input.addEventListener("change", function(e) {
+const clearBtn = document.getElementById("clearBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+
+const status = document.getElementById("status");
+const brushCursor = document.getElementById("brushCursor");
+
+let image = new Image();
+
+let drawing = false;
+let tool = "brush";
+
+let zoom = 1;
+
+let undoStack = [];
+let redoStack = [];
+
+let originalImageData = null;
+
+let lastX = 0;
+let lastY = 0;
+
+
+/* =========================
+   IMAGE UPLOAD
+========================= */
+
+imageInput.addEventListener("change", function(e) {
 
     const file = e.target.files[0];
 
@@ -295,212 +301,501 @@ input.addEventListener("change", function(e) {
 
     reader.onload = function(event) {
 
-        const img = new Image();
+        image.onload = function() {
 
-        img.onload = function() {
+            const maxWidth = 1000;
+            const maxHeight = 750;
 
-            originalImage = img;
+            let width = image.width;
+            let height = image.height;
 
-            const maxWidth = 1400;
-            const scale = Math.min(1, maxWidth / img.width);
+            const ratio = Math.min(
+                maxWidth / width,
+                maxHeight / height,
+                1
+            );
 
-            canvas.width = Math.round(img.width * scale);
-            canvas.height = Math.round(img.height * scale);
+            width *= ratio;
+            height *= ratio;
+
+            canvas.width = width;
+            canvas.height = height;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             ctx.drawImage(
-                img,
+                image,
                 0,
                 0,
                 canvas.width,
                 canvas.height
             );
 
-            originalPixels = ctx.getImageData(
-                0,
-                0,
-                canvas.width,
-                canvas.height
-            );
+            originalImageData =
+                ctx.getImageData(
+                    0,
+                    0,
+                    canvas.width,
+                    canvas.height
+                );
 
-            selectionCanvas = document.createElement("canvas");
-            selectionCanvas.width = canvas.width;
-            selectionCanvas.height = canvas.height;
+            undoStack = [];
+            redoStack = [];
 
-            selectionCtx = selectionCanvas.getContext("2d");
+            saveState();
 
-            uploadBox.style.display = "none";
-            editor.style.display = "block";
+            status.textContent =
+                "Image loaded — choose a colour and start painting.";
+
         };
 
-        img.src = event.target.result;
+        image.src = event.target.result;
     };
 
     reader.readAsDataURL(file);
+
 });
 
 
-function startPainting() {
+/* =========================
+   BRUSH SIZE
+========================= */
 
-    canvas.style.cursor = "crosshair";
+brushSize.addEventListener("input", function() {
 
-    canvas.onpointerdown = function(e) {
+    sizeValue.textContent = brushSize.value;
 
-        painting = true;
-        paint(e);
+    updateCursor();
+
+});
+
+
+/* =========================
+   TOOL SELECTION
+========================= */
+
+brushBtn.addEventListener("click", function() {
+
+    tool = "brush";
+
+    brushBtn.classList.add("active");
+    eraserBtn.classList.remove("active");
+
+});
+
+
+eraserBtn.addEventListener("click", function() {
+
+    tool = "eraser";
+
+    eraserBtn.classList.add("active");
+    brushBtn.classList.remove("active");
+
+});
+
+
+/* =========================
+   COLOUR CONVERSION
+========================= */
+
+function hexToRgb(hex) {
+
+    hex = hex.replace("#", "");
+
+    return {
+        r: parseInt(hex.substring(0,2),16),
+        g: parseInt(hex.substring(2,4),16),
+        b: parseInt(hex.substring(4,6),16)
     };
 
-    canvas.onpointermove = function(e) {
-
-        if (painting) {
-            paint(e);
-        }
-    };
-
-    canvas.onpointerup = function() {
-
-        painting = false;
-        applyColour();
-    };
-
-    canvas.onpointerleave = function() {
-
-        painting = false;
-    };
 }
 
+
+/* =========================
+   DRAWING
+========================= */
 
 function getPosition(e) {
 
     const rect = canvas.getBoundingClientRect();
 
-    return {
-        x: (e.clientX - rect.left) *
-            (canvas.width / rect.width),
+    let clientX;
+    let clientY;
 
-        y: (e.clientY - rect.top) *
-            (canvas.height / rect.height)
+    if (e.touches && e.touches.length) {
+
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+
+    } else {
+
+        clientX = e.clientX;
+        clientY = e.clientY;
+
+    }
+
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    return {
+
+        x: (clientX - rect.left) * scaleX,
+        y: (clientY - rect.top) * scaleY
+
     };
+
 }
 
 
-function paint(e) {
+function startDrawing(e) {
 
-    if (!selectionCtx) return;
+    if (!image.src) return;
+
+    e.preventDefault();
+
+    drawing = true;
 
     const pos = getPosition(e);
 
-    const size = Number(brushSlider.value);
+    lastX = pos.x;
+    lastY = pos.y;
 
-    selectionCtx.fillStyle = "rgba(255,255,255,1)";
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
 
-    selectionCtx.beginPath();
-
-    selectionCtx.arc(
-        pos.x,
-        pos.y,
-        size,
-        0,
-        Math.PI * 2
-    );
-
-    selectionCtx.fill();
 }
 
 
-function applyColour() {
+function draw(e) {
 
-    if (!originalPixels || !selectionCtx) return;
+    if (!drawing) return;
 
-    const imageData = new ImageData(
-        new Uint8ClampedArray(originalPixels.data),
-        originalPixels.width,
-        originalPixels.height
-    );
+    e.preventDefault();
 
-    const mask = selectionCtx.getImageData(
+    const pos = getPosition(e);
+
+    const color = hexToRgb(colorPicker.value);
+
+    ctx.lineWidth = Number(brushSize.value);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    if (tool === "brush") {
+
+        ctx.globalCompositeOperation = "source-atop";
+
+        ctx.strokeStyle =
+            `rgb(${color.r}, ${color.g}, ${color.b})`;
+
+    } else {
+
+        ctx.globalCompositeOperation =
+            "destination-out";
+
+    }
+
+    ctx.beginPath();
+
+    ctx.moveTo(lastX, lastY);
+
+    ctx.lineTo(pos.x, pos.y);
+
+    ctx.stroke();
+
+    lastX = pos.x;
+    lastY = pos.y;
+
+}
+
+
+function stopDrawing() {
+
+    if (!drawing) return;
+
+    drawing = false;
+
+    ctx.globalCompositeOperation =
+        "source-over";
+
+    saveState();
+
+}
+
+
+/* Mouse */
+
+canvas.addEventListener("mousedown", startDrawing);
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mouseup", stopDrawing);
+canvas.addEventListener("mouseleave", stopDrawing);
+
+
+/* Touch */
+
+canvas.addEventListener("touchstart", startDrawing, {
+    passive: false
+});
+
+canvas.addEventListener("touchmove", draw, {
+    passive: false
+});
+
+canvas.addEventListener("touchend", stopDrawing);
+
+
+/* =========================
+   BRUSH CURSOR
+========================= */
+
+function updateCursor() {
+
+    const size = Number(brushSize.value);
+
+    brushCursor.style.width = size + "px";
+    brushCursor.style.height = size + "px";
+
+}
+
+
+canvas.addEventListener("mousemove", function(e) {
+
+    brushCursor.style.display = "block";
+
+    brushCursor.style.left = e.clientX + "px";
+    brushCursor.style.top = e.clientY + "px";
+
+    updateCursor();
+
+});
+
+
+canvas.addEventListener("mouseleave", function() {
+
+    brushCursor.style.display = "none";
+
+});
+
+
+canvas.addEventListener("touchstart", function(e) {
+
+    if (!e.touches.length) return;
+
+    brushCursor.style.display = "block";
+
+    brushCursor.style.left =
+        e.touches[0].clientX + "px";
+
+    brushCursor.style.top =
+        e.touches[0].clientY + "px";
+
+    updateCursor();
+
+}, {passive:true});
+
+
+canvas.addEventListener("touchmove", function(e) {
+
+    if (!e.touches.length) return;
+
+    brushCursor.style.display = "block";
+
+    brushCursor.style.left =
+        e.touches[0].clientX + "px";
+
+    brushCursor.style.top =
+        e.touches[0].clientY + "px";
+
+}, {passive:true});
+
+
+canvas.addEventListener("touchend", function() {
+
+    brushCursor.style.display = "none";
+
+});
+
+
+/* =========================
+   UNDO / REDO
+========================= */
+
+function saveState() {
+
+    if (!canvas.width || !canvas.height) return;
+
+    const state = ctx.getImageData(
         0,
         0,
         canvas.width,
         canvas.height
     );
 
-    const hex = colorPicker.value;
+    undoStack.push(state);
 
-    const r = parseInt(hex.substring(1,3),16);
-    const g = parseInt(hex.substring(3,5),16);
-    const b = parseInt(hex.substring(5,7),16);
-
-    const strength = Number(strengthSlider.value) / 100;
-
-    for (let i = 0; i < imageData.data.length; i += 4) {
-
-        const selected = mask.data[i];
-
-        if (selected > 0) {
-
-            const oldR = originalPixels.data[i];
-            const oldG = originalPixels.data[i+1];
-            const oldB = originalPixels.data[i+2];
-
-            const brightness =
-                (oldR * 0.299) +
-                (oldG * 0.587) +
-                (oldB * 0.114);
-
-            const newR = r * (brightness / 255);
-            const newG = g * (brightness / 255);
-            const newB = b * (brightness / 255);
-
-            imageData.data[i] =
-                oldR * (1-strength) + newR * strength;
-
-            imageData.data[i+1] =
-                oldG * (1-strength) + newG * strength;
-
-            imageData.data[i+2] =
-                oldB * (1-strength) + newB * strength;
-        }
+    if (undoStack.length > 30) {
+        undoStack.shift();
     }
 
-    ctx.putImageData(imageData,0,0);
+    redoStack = [];
+
 }
 
 
-colorPicker.addEventListener("input", applyColour);
+undoBtn.addEventListener("click", function() {
 
-strengthSlider.addEventListener("input", applyColour);
+    if (undoStack.length <= 1) return;
+
+    const current =
+        undoStack.pop();
+
+    redoStack.push(current);
+
+    const previous =
+        undoStack[undoStack.length - 1];
+
+    ctx.putImageData(previous, 0, 0);
+
+});
 
 
-function clearSelection() {
+redoBtn.addEventListener("click", function() {
 
-    if (!originalPixels) return;
+    if (!redoStack.length) return;
 
-    ctx.putImageData(originalPixels,0,0);
+    const next =
+        redoStack.pop();
 
-    if (selectionCtx) {
+    undoStack.push(next);
 
-        selectionCtx.clearRect(
-            0,
-            0,
-            canvas.width,
-            canvas.height
-        );
-    }
+    ctx.putImageData(next, 0, 0);
+
+});
+
+
+/* =========================
+   ZOOM
+========================= */
+
+function updateZoom() {
+
+    canvas.style.width =
+        (canvas.width * zoom) + "px";
+
+    canvas.style.height =
+        (canvas.height * zoom) + "px";
+
+    zoomReset.textContent =
+        Math.round(zoom * 100) + "%";
+
 }
 
 
-function downloadImage() {
+zoomIn.addEventListener("click", function() {
 
-    const link = document.createElement("a");
+    zoom += 0.25;
 
-    link.download = "custom-colour-result.png";
+    if (zoom > 3) zoom = 3;
 
-    link.href = canvas.toDataURL("image/png");
+    updateZoom();
+
+});
+
+
+zoomOut.addEventListener("click", function() {
+
+    zoom -= 0.25;
+
+    if (zoom < 0.5) zoom = 0.5;
+
+    updateZoom();
+
+});
+
+
+zoomReset.addEventListener("click", function() {
+
+    zoom = 1;
+
+    updateZoom();
+
+});
+
+
+/* =========================
+   CLEAR
+========================= */
+
+clearBtn.addEventListener("click", function() {
+
+    if (!originalImageData) return;
+
+    if (!confirm("Reset the image?")) return;
+
+    ctx.putImageData(
+        originalImageData,
+        0,
+        0
+    );
+
+    saveState();
+
+});
+
+
+/* =========================
+   DOWNLOAD
+========================= */
+
+downloadBtn.addEventListener("click", function() {
+
+    if (!canvas.width) {
+
+        alert("Please upload an image first.");
+
+        return;
+
+    }
+
+    const link =
+        document.createElement("a");
+
+    link.download =
+        "custom-colour-result.png";
+
+    link.href =
+        canvas.toDataURL("image/png");
 
     link.click();
-}
+
+});
+
+
+/* =========================
+   KEYBOARD SHORTCUTS
+========================= */
+
+document.addEventListener("keydown", function(e) {
+
+    if ((e.ctrlKey || e.metaKey) && e.key === "z") {
+
+        e.preventDefault();
+
+        undoBtn.click();
+
+    }
+
+    if ((e.ctrlKey || e.metaKey) && e.key === "y") {
+
+        e.preventDefault();
+
+        redoBtn.click();
+
+    }
+
+});
+
 
 </script>
 
 </body>
-  </html>
+</html>
